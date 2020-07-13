@@ -9,6 +9,11 @@ const routes: Array<RouteConfig> = [
     path: "/",
     name: "Home",
     component: Home
+  },
+  {
+    path:'/index',
+    name:'主页',
+    component:()=>import('@/components/index/index.vue')
   }
 ];
 
