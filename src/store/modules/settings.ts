@@ -10,6 +10,7 @@ export interface ISettingsState {
   showTagsView: boolean
   showSidebarLogo: boolean
   sidebarTextTheme: boolean
+  showRightPanel:boolean
 }
 
 @Module({ dynamic: true, store, name: 'settings' })
@@ -20,7 +21,7 @@ class Settings extends VuexModule implements ISettingsState {
   public showTagsView = defaultSettings.showTagsView
   public showSidebarLogo = defaultSettings.showSidebarLogo
   public sidebarTextTheme = defaultSettings.sidebarTextTheme
-
+  public showRightPanel = false
   @Mutation
   private CHANGE_SETTING(payload: { key: string, value: any }) {
     const { key, value } = payload

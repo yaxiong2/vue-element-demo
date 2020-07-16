@@ -1,70 +1,66 @@
 import axios from 'axios'
-import { Message, MessageBox } from 'element-ui'
+import { Notification } from 'element-ui'
 import { UserModule } from '@/store/modules/user'
-
+import { getToken } from '@/utils/cookies'
+import Message from '@/utils/message'
+import Vue from 'vue'
+// 创建axios实例
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
-  timeout: 5000
-  // withCredentials: true // send cookies when cross-domain requests
+  // 超时
+  timeout: 10000
 })
-
-// Request interceptors
+// request拦截器
 service.interceptors.request.use(
-  (config) => {
-    // Add X-Access-Token header to every request, you can add other custom headers here
-    if (UserModule.token) {
-      config.headers['X-Access-Token'] = UserModule.token
+  config => {
+    if (config.headers.Authorization !== 'Basic dmVudXM6c2VjcmV0' && getToken()) {
+      config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
     }
     return config
   },
-  (error) => {
+  error => {
     Promise.reject(error)
   }
 )
 
-// Response interceptors
-service.interceptors.response.use(
-  (response) => {
-    // Some example codes here:
-    // code == 20000: success
-    // code == 50001: invalid access token
-    // code == 50002: already login in other place
-    // code == 50003: access token expired
-    // code == 50004: invalid user (user not exist)
-    // code == 50005: username or password is incorrect
-    // You can change this part for your own usage.
-    const res = response.data
-    if (res.code !== 20000) {
-      Message({
-        message: res.message || 'Error',
-        type: 'error',
-        duration: 5 * 1000
+// 响应拦截器
+service.interceptors.response.use((res:any) => {
+    const code = res.status
+   if (code !== 200) {
+      // 提示错误原因
+      (Notification as any).error({
+        title: res.data.msg
       })
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
-        MessageBox.confirm(
-          '你已被登出，可以取消继续留在该页面，或者重新登录',
-          '确定登出',
-          {
-            confirmButtonText: '重新登录',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }
-        ).then(() => {
-          UserModule.ResetToken()
-          location.reload() // To prevent bugs from vue-router
-        })
-      }
-      return Promise.reject(new Error(res.message || 'Error'))
+      return Promise.reject(res)
     } else {
-      return response.data
+      return res
     }
   },
-  (error) => {
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
+  error => {
+    const status = error && error.response && error.response.status
+    if (status) {
+      if (Number(status) >= 400 && Number(status) < 500) {
+        if (Number(status) === 401) {
+          Message.error({ message: '登录超时,3s后将重新登录', duration: 3000 })
+          setTimeout(() => {
+            UserModule.LogOut()
+            window.location.reload()
+          }, 3000)
+        } else {
+          const err = error.response && error.response.data && error.response.data.error
+          if (err) {
+            Message.error({ message: err, duration: 3000 })
+         }
+        }
+      } else if (status === 500) {
+        Message.error('服务器请求失败')
+      } else if (status === 502) {
+        Message.error('网关错误')
+      } else if (status === 504) {
+        Message.error('网关超时')
+      }
+    } else {
+      Message.error('请求错误')
+    }
     return Promise.reject(error)
   }
 )

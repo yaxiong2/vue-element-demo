@@ -11,6 +11,10 @@ declare module '*.gif' {
   export const gif: any
 }
 
+interface Window {
+  [key:string]:any;
+}
+
 // TODO: remove this part after vue-count-to has its typescript file
 declare module 'vue-count-to'
 
@@ -22,3 +26,15 @@ declare module 'vue2-dropzone'
 
 // TODO: remove this part after vue-image-crop-upload has its typescript file
 declare module 'vue-image-crop-upload'
+
+// TODO: remove this part after vue-splitpane has its typescript file
+declare module 'vue-splitpane'
+
+// 声明vue-cropper
+declare module 'vue-cropper'
+
+// 声明vue树
+declare module '@riophae/vue-treeselect'
+
+// 声明消息订阅器
+declare module 'pubsub-js'

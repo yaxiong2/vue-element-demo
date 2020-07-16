@@ -6,7 +6,6 @@
     <scroll-pane
       ref="scrollPane"
       class="tags-view-wrapper"
-      @scroll="handleScroll"
     >
       <router-link
         v-for="tag in visitedViews"
@@ -19,7 +18,7 @@
         @click.middle.native="!isAffix(tag)?closeSelectedTag(tag):''"
         @contextmenu.prevent.native="openMenu(tag, $event)"
       >
-        {{ $t('route.' + tag.meta.title) }}
+        {{ tag.meta.title }}
         <span
           v-if="!isAffix(tag)"
           class="el-icon-close"
@@ -33,20 +32,19 @@
       class="contextmenu"
     >
       <li @click="refreshSelectedTag(selectedTag)">
-        {{ $t('tagsView.refresh') }}
+        刷新页面
       </li>
       <li
         v-if="!isAffix(selectedTag)"
         @click="closeSelectedTag(selectedTag)"
       >
-        {{
-          $t('tagsView.close') }}
+        关闭当前
       </li>
       <li @click="closeOthersTags">
-        {{ $t('tagsView.closeOthers') }}
+        关闭其他
       </li>
       <li @click="closeAllTags(selectedTag)">
-        {{ $t('tagsView.closeAll') }}
+        关闭所有
       </li>
     </ul>
   </div>
@@ -55,7 +53,7 @@
 <script lang="ts">
 import path from 'path'
 import { Component, Vue, Watch } from 'vue-property-decorator'
-import { RouteConfig } from 'vue-router'
+import VueRouter, { Route, RouteRecord, RouteConfig } from 'vue-router'
 import { PermissionModule } from '@/store/modules/permission'
 import { TagsViewModule, ITagView } from '@/store/modules/tags-view'
 import ScrollPane from './ScrollPane.vue'
@@ -67,10 +65,10 @@ import ScrollPane from './ScrollPane.vue'
   }
 })
 export default class extends Vue {
-  private visible = false
-  private top = 0
-  private left = 0
-  private selectedTag: ITagView = {}
+  private visible: boolean = false
+  private top: number = 0
+  private left: number = 0
+  private selectedTag: ITagView = { }
   private affixTags: ITagView[] = []
 
   get visitedViews() {
@@ -144,7 +142,7 @@ export default class extends Vue {
   private addTags() {
     const { name } = this.$route
     if (name) {
-      TagsViewModule.addView(this.$route)
+      TagsViewModule.addView(this.$route as ITagView)
     }
     return false
   }
@@ -157,7 +155,7 @@ export default class extends Vue {
           (this.$refs.scrollPane as ScrollPane).moveToTarget(tag as any)
           // When query is different then update
           if ((tag.to as ITagView).fullPath !== this.$route.fullPath) {
-            TagsViewModule.updateVisitedView(this.$route)
+            TagsViewModule.updateVisitedView(this.$route as ITagView)
           }
           break
         }
@@ -183,9 +181,7 @@ export default class extends Vue {
   }
 
   private closeOthersTags() {
-    if (this.selectedTag.fullPath !== this.$route.path && this.selectedTag.fullPath !== undefined) {
-      this.$router.push(this.selectedTag.fullPath)
-    }
+    this.$router.push(this.selectedTag)
     TagsViewModule.delOthersViews(this.selectedTag)
     this.moveToCurrentTag()
   }
@@ -200,8 +196,8 @@ export default class extends Vue {
 
   private toLastView(visitedViews: ITagView[], view: ITagView) {
     const latestView = visitedViews.slice(-1)[0]
-    if (latestView !== undefined && latestView.fullPath !== undefined) {
-      this.$router.push(latestView.fullPath)
+    if (latestView) {
+      this.$router.push(latestView)
     } else {
       // Default redirect to the home page if there is no tags-view, adjust it if you want
       if (view.name === 'Dashboard') {
@@ -232,10 +228,6 @@ export default class extends Vue {
   private closeMenu() {
     this.visible = false
   }
-
-  private handleScroll() {
-    this.closeMenu()
-  }
 }
 </script>
 
@@ -265,6 +257,7 @@ export default class extends Vue {
     }
   }
 }
+
 </style>
 <style lang="scss" scoped>
 .tags-view-container {
@@ -272,7 +265,7 @@ export default class extends Vue {
   width: 100%;
   background: #fff;
   border-bottom: 1px solid #d8dce5;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
 
   .tags-view-wrapper {
     .tags-view-item {
@@ -327,7 +320,7 @@ export default class extends Vue {
     font-size: 12px;
     font-weight: 400;
     color: #333;
-    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .3);
 
     li {
       margin: 0;

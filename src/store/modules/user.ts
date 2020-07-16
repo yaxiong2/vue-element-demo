@@ -1,28 +1,29 @@
 import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators'
-import { login, logout, getUserInfo } from '@/api/users'
+import { login, getInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/cookies'
 import router, { resetRouter } from '@/router'
-import { PermissionModule } from './permission'
-import { TagsViewModule } from './tags-view'
 import store from '@/store'
+import Message from '@/utils/message'
 
 export interface IUserState {
   token: string
   name: string
   avatar: string
   introduction: string
-  roles: string[]
+  roles: string[] | null
   email: string
+  permissions:any
 }
 
 @Module({ dynamic: true, store, name: 'user' })
 class User extends VuexModule implements IUserState {
   public token = getToken() || ''
   public name = ''
-  public avatar = ''
+  public avatar = require('@/assets/image/123.jpg')
   public introduction = ''
-  public roles: string[] = []
+  public roles: string[] | null = null
   public email = ''
+  public permissions = ''
 
   @Mutation
   private SET_TOKEN(token: string) {
@@ -40,8 +41,8 @@ class User extends VuexModule implements IUserState {
   }
 
   @Mutation
-  private SET_INTRODUCTION(introduction: string) {
-    this.introduction = introduction
+  private SET_PERMISSIONS(permissions:any) {
+    this.permissions = permissions
   }
 
   @Mutation
@@ -49,18 +50,11 @@ class User extends VuexModule implements IUserState {
     this.roles = roles
   }
 
-  @Mutation
-  private SET_EMAIL(email: string) {
-    this.email = email
-  }
-
   @Action
-  public async Login(userInfo: { username: string, password: string}) {
-    let { username, password } = userInfo
-    username = username.trim()
-    const { data } = await login({ username, password })
-    setToken(data.accessToken)
-    this.SET_TOKEN(data.accessToken)
+  public async Login(userInfo: { username: string, password: string, grant_type:string}) {
+    const { data } = await login(userInfo)
+    setToken(data.access_token)
+    this.SET_TOKEN(data.access_token)
   }
 
   @Action
@@ -72,55 +66,54 @@ class User extends VuexModule implements IUserState {
 
   @Action
   public async GetUserInfo() {
-    if (this.token === '') {
-      throw Error('GetUserInfo: token is undefined!')
+    // let t: any = JSON.parse(sessionStorage.getItem('info') || '')
+    let res:any
+    // if (!t) {
+      res = await getInfo()
+      res = res.data
+    // } else {
+    //   res = t
+    // }
+    if (!res) {
+      throw Error('认证失败，请重新登录')
     }
-    const { data } = await getUserInfo({ /* Your params here */ })
-    if (!data) {
-      throw Error('Verification failed, please Login again.')
+    const { roles, permissions } = res as any
+    let { userName, avatar, admin, guard } = (res as any).user
+    if (avatar === '') { // 如果服务器没有图片地址，则加载本地图片
+      avatar = require('@/assets/image/123.jpg')
     }
-    const { roles, name, avatar, introduction, email } = data.user
-    // roles must be a non-empty array
-    if (!roles || roles.length <= 0) {
-      throw Error('GetUserInfo: roles must be a non-null array!')
+    if (!roles || roles === null || roles.length === 0) {
+      Message.warning({ message: '该用户尚未配置角色', duration: 3000 })
     }
     this.SET_ROLES(roles)
-    this.SET_NAME(name)
+    this.SET_NAME(userName)
     this.SET_AVATAR(avatar)
-    this.SET_INTRODUCTION(introduction)
-    this.SET_EMAIL(email)
+    this.SET_PERMISSIONS(permissions)
   }
 
   @Action
-  public async ChangeRoles(role: string) {
-    // Dynamically modify permissions
-    const token = role + '-token'
-    this.SET_TOKEN(token)
-    setToken(token)
-    await this.GetUserInfo()
-    resetRouter()
-    // Generate dynamic accessible routes based on roles
-    PermissionModule.GenerateRoutes(this.roles)
-    // Add generated routes
-    router.addRoutes(PermissionModule.dynamicRoutes)
-    // Reset visited views and cached views
-    TagsViewModule.delAllViews()
-  }
-
-  @Action
-  public async LogOut() {
-    if (this.token === '') {
-      throw Error('LogOut: token is undefined!')
-    }
-    await logout()
+  public LogOut() {
+    // if (this.token === '') {
+    // window.location.reload()
+    // }
+    location.href = '/login'
     removeToken()
     resetRouter()
-
-    // Reset visited views and cached views
-    TagsViewModule.delAllViews()
     this.SET_TOKEN('')
     this.SET_ROLES([])
+    this.SET_PERMISSIONS('')
+  }
+
+   // 前端 登出
+   @Action
+   public FedLogOut() {
+    return new Promise(resolve => {
+      this.SET_TOKEN('')
+      removeToken()
+      resolve()
+    })
   }
 }
 
 export const UserModule = getModule(User)
+

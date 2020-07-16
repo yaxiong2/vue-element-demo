@@ -17,7 +17,7 @@
       >
         <sidebar-item
           v-for="route in routes"
-          :key="route.path"
+          :key="route.id"
           :item="route"
           :base-path="route.path"
           :is-collapse="isCollapse"
@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import { AppModule } from '@/store/modules/app'
 import { PermissionModule } from '@/store/modules/permission'
 import { SettingsModule } from '@/store/modules/settings'

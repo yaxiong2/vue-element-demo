@@ -1,49 +1,48 @@
 <template>
-  <el-scrollbar
-    ref="scrollContainer"
-    :vertical="false"
-    class="scroll-container"
-    @wheel.native.prevent="handleScroll"
-  >
-    <slot />
-  </el-scrollbar>
+  <div class="scrollbar-box">
+    <hamburger
+      id="hamburger-container"
+      :is-active="sidebar.opened"
+      class="hamburger-container"
+      @toggleClick="toggleSideBar"
+    />
+    <el-scrollbar
+      ref="scrollContainer"
+      :vertical="false"
+      class="scroll-container"
+      @wheel.native.prevent="handleScroll"
+    >
+      <slot />
+    </el-scrollbar>
+  </div>
+
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-
+import Hamburger from '@/components/Hamburger/index.vue'
+import { AppModule } from '@/store/modules/app'
 const tagSpacing = 4
 
 @Component({
-  name: 'ScrollPane'
+  name: 'ScrollPane',
+  components: {
+    Hamburger
+  }
 })
 export default class extends Vue {
-  get scrollWrapper() {
-    return (this.$refs.scrollContainer as Vue).$refs.wrap as HTMLElement
-  }
-
-  mounted() {
-    this.scrollWrapper.addEventListener('scroll', this.emitScroll, true)
-  }
-
-  beforeDestroy() {
-    this.scrollWrapper.removeEventListener('scroll', this.emitScroll)
-  }
-
   private handleScroll(e: MouseWheelEvent) {
     const eventDelta = (e as any).wheelDelta || -e.deltaY * 40
-    const scrollWrapper = this.scrollWrapper
+    const scrollContainer = this.$refs.scrollContainer as Vue
+    const scrollWrapper = scrollContainer.$refs.wrap as HTMLElement
     scrollWrapper.scrollLeft = scrollWrapper.scrollLeft + eventDelta / 4
   }
 
-  private emitScroll() {
-    this.$emit('scroll')
-  }
-
   public moveToTarget(currentTag: HTMLElement) {
-    const container = (this.$refs.scrollContainer as Vue).$el as HTMLElement
+    const scrollContainer = this.$refs.scrollContainer as Vue
+    const container = scrollContainer.$el as HTMLElement
     const containerWidth = container.offsetWidth
-    const scrollWrapper = this.scrollWrapper
+    const scrollWrapper = scrollContainer.$refs.wrap as HTMLElement
     const tagList = this.$parent.$refs.tag as any[]
 
     let firstTag = null
@@ -76,6 +75,12 @@ export default class extends Vue {
       }
     }
   }
+  private toggleSideBar() {
+    AppModule.ToggleSideBar(false)
+  }
+  get sidebar() {
+    return AppModule.sidebar
+  }
 }
 </script>
 
@@ -92,10 +97,25 @@ export default class extends Vue {
 </style>
 
 <style lang="scss" scoped>
+.scrollbar-box{
+  display: flex;
+}
 .scroll-container {
   white-space: nowrap;
   position: relative;
   overflow: hidden;
-  width: 100%;
+  flex-grow: 1;
+}
+.hamburger-container {
+  height: 32px;
+  line-height: 32px;
+  padding: 0 15px;
+  cursor: pointer;
+  transition: background .3s;
+  -webkit-tap-highlight-color:transparent;
+  &:hover {
+    background: rgba(0, 0, 0, .025)
+  }
+
 }
 </style>

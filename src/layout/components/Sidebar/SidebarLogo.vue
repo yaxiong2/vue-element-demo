@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="sidebar-logo-container"
-    :class="{'collapse': collapse}"
-  >
+  <div class="sidebar-logo-container" :class="{'collapse': collapse}">
     <transition name="sidebarLogoFade">
       <router-link
         v-if="collapse"
@@ -10,10 +7,7 @@
         class="sidebar-logo-link"
         to="/"
       >
-        <img
-          src="favicon.ico"
-          class="sidebar-logo"
-        >
+        <img src="favicon.ico" class="sidebar-logo">
       </router-link>
       <router-link
         v-else
@@ -21,10 +15,7 @@
         class="sidebar-logo-link"
         to="/"
       >
-        <img
-          src="favicon.ico"
-          class="sidebar-logo"
-        >
+        <img src="favicon.ico" class="sidebar-logo">
         <h1 class="sidebar-title">
           {{ title }}
         </h1>
@@ -35,7 +26,6 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import settings from '@/settings'
 
 @Component({
   name: 'SidebarLogo'
@@ -43,7 +33,7 @@ import settings from '@/settings'
 export default class extends Vue {
   @Prop({ required: true }) private collapse!: boolean
 
-  private title = settings.title
+  private title = '维纳斯维护系统'
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="!item.meta || !item.meta.hidden"
-    :class="[isCollapse ? 'simple-mode' : 'full-mode', {'first-level': isFirstLevel}]"
+    :class="['menu-wrapper', isCollapse ? 'simple-mode' : 'full-mode', {'first-level': isFirstLevel}]"
   >
     <template v-if="!alwaysShowRootMenu && theOnlyOneChild && !theOnlyOneChild.children">
       <sidebar-item-link
@@ -14,12 +14,12 @@
         >
           <svg-icon
             v-if="theOnlyOneChild.meta.icon"
-            :name="theOnlyOneChild.meta.icon"
+            :icon-class="theOnlyOneChild.meta.icon"
           />
           <span
             v-if="theOnlyOneChild.meta.title"
             slot="title"
-          >{{ $t('route.' + theOnlyOneChild.meta.title) }}</span>
+          >{{ theOnlyOneChild.meta.title }}</span>
         </el-menu-item>
       </sidebar-item-link>
     </template>
@@ -31,17 +31,17 @@
       <template slot="title">
         <svg-icon
           v-if="item.meta && item.meta.icon"
-          :name="item.meta.icon"
+          :icon-class="item.meta.icon"
         />
         <span
           v-if="item.meta && item.meta.title"
           slot="title"
-        >{{ $t('route.' + item.meta.title) }}</span>
+        >{{ item.meta.title }}</span>
       </template>
       <template v-if="item.children">
         <sidebar-item
           v-for="child in item.children"
-          :key="child.path"
+          :key="child.id"
           :item="child"
           :is-collapse="isCollapse"
           :is-first-level="false"
@@ -56,7 +56,7 @@
 <script lang="ts">
 import path from 'path'
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { RouteConfig } from 'vue-router'
+import { Route, RouteConfig } from 'vue-router'
 import { isExternal } from '@/utils/validate'
 import SidebarItemLink from './SidebarItemLink.vue'
 
@@ -171,6 +171,12 @@ export default class extends Vue {
 </style>
 
 <style lang="scss" scoped>
+// 单独设置侧边栏栏图标尺寸
+.menu-wrapper {
+  .svg-icon {
+    font-size: 1.2em;
+  }
+}
 .svg-icon {
   margin-right: 16px;
 }

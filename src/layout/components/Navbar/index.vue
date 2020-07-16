@@ -12,17 +12,7 @@
     />
     <div class="right-menu">
       <template v-if="device!=='mobile'">
-        <header-search class="right-menu-item" />
-        <error-log class="errLog-container right-menu-item hover-effect" />
         <screenfull class="right-menu-item hover-effect" />
-        <el-tooltip
-          :content="$t('navbar.size')"
-          effect="dark"
-          placement="bottom"
-        >
-          <size-select class="right-menu-item hover-effect" />
-        </el-tooltip>
-        <lang-select class="right-menu-item hover-effect" />
       </template>
       <el-dropdown
         class="avatar-container right-menu-item hover-effect"
@@ -30,46 +20,46 @@
       >
         <div class="avatar-wrapper">
           <img
-            :src="avatar+'?imageView2/1/w/80/h/80'"
+            :src="require('@/assets/image/123.jpg')"
             class="user-avatar"
           >
+          <!-- <img
+            :src="avatar+'?imageView2/1/w/80/h/80'"
+            class="user-avatar"
+          > -->
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
-          <router-link to="/profile/">
+          <router-link to="/user/">
             <el-dropdown-item>
-              {{ $t('navbar.profile') }}
+              个人中心
             </el-dropdown-item>
           </router-link>
-          <router-link to="/">
-            <el-dropdown-item>
-              {{ $t('navbar.dashboard') }}
-            </el-dropdown-item>
-          </router-link>
-          <a
-            target="_blank"
-            href="https://github.com/armour/vue-typescript-admin-template/"
-          >
-            <el-dropdown-item>
-              {{ $t('navbar.github') }}
-            </el-dropdown-item>
-          </a>
-          <a
-            target="_blank"
-            href="https://armour.github.io/vue-typescript-admin-docs/"
-          >
-            <el-dropdown-item>Docs</el-dropdown-item>
-          </a>
-          <el-dropdown-item
-            divided
-            @click.native="logout"
-          >
-            <span style="display:block;">
-              {{ $t('navbar.logOut') }}
-            </span>
+          <el-dropdown-item>
+            <span @click="showSetting = true">布局设置</span>
+          </el-dropdown-item>
+          <el-dropdown-item divided>
+            <span
+              style="display:block;"
+              @click="dialogVisible = true"
+            >退出登录</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+      <!-- 退出登录蒙版 -->
+      <el-dialog
+        title="提示"
+        :visible.sync="dialogVisible"
+        width="30%"
+      >
+        <span>确定要退出登录吗</span>
+        <span slot="footer" class="dialog-footer">
+          <form action="/logout" method="POST" onsubmit="return false" name="toLogout">
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <input class="el-button el-button--primary el-button--small" type="submit" value="确定" @click="logout">
+          </form>
+        </span>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -78,11 +68,9 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { AppModule } from '@/store/modules/app'
 import { UserModule } from '@/store/modules/user'
+import { SettingsModule } from '@/store/modules/settings'
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
-import ErrorLog from '@/components/ErrorLog/index.vue'
 import Hamburger from '@/components/Hamburger/index.vue'
-import HeaderSearch from '@/components/HeaderSearch/index.vue'
-import LangSelect from '@/components/LangSelect/index.vue'
 import Screenfull from '@/components/Screenfull/index.vue'
 import SizeSelect from '@/components/SizeSelect/index.vue'
 
@@ -90,15 +78,21 @@ import SizeSelect from '@/components/SizeSelect/index.vue'
   name: 'Navbar',
   components: {
     Breadcrumb,
-    ErrorLog,
     Hamburger,
-    HeaderSearch,
-    LangSelect,
     Screenfull,
     SizeSelect
   }
 })
 export default class extends Vue {
+  private dialogVisible:boolean = false
+
+  get showSetting() {
+    return SettingsModule.showRightPanel
+  }
+  set showSetting(value:boolean) {
+    SettingsModule.ChangeSetting({ key: 'showRightPanel', value: value })
+  }
+
   get sidebar() {
     return AppModule.sidebar
   }
@@ -115,9 +109,11 @@ export default class extends Vue {
     AppModule.ToggleSideBar(false)
   }
 
-  private async logout() {
-    await UserModule.LogOut()
-    this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+  logout() {
+    this.dialogVisible = false
+    UserModule.LogOut();
+    // 系统提交退出
+    (document as any).toLogout.submit()
   }
 }
 </script>

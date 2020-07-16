@@ -1,0 +1,91 @@
+$--color-delete: #f56c6c;
+
+.el-dialog {
+  width: 480px !important;
+
+  .el-dialog__header {
+    padding: 18px 24px 16px;
+    border-bottom: 1px solid #F0F0F0;
+    .el-dialog__title {
+      font-size: 16px !important;
+      font-weight: 600 !important;
+    }
+    .el-icon-close:before {
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+  .el-dialog__body {
+    padding: 24px 60px !important;
+    border-bottom: 1px solid #F0F0F0;
+  }
+  .el-dialog__footer {
+    padding: 16px 24px!important;
+  }
+}
+
+
+.el-dialog .el-dialog__body {
+  padding: 10px 20px;
+}
+
+.el-button.btn-delete {
+  color: $--color-delete !important;
+}
+
+.btn-delete {
+  color: $--color-delete !important;
+}
+
+// 设置表单设计器弹窗宽度
+.cus-dialog-container{
+  .el-dialog {
+    width: 780px !important;
+  }
+}
+.btn-no-padding {
+  padding:0px!important;
+}
+.el-message-box {
+  position: relative;
+  top: -70px!important;
+}
+// 控制顶部按钮向右侧
+.header-flex {
+  display:flex;
+  align-items: center;
+  padding:0 0 10px 0;
+}
+.header-label {
+  padding-right:12px;
+  font-weight:700;
+}
+.header-right {
+  flex: 1;
+  display: flex;
+  flex-direction: row-reverse;
+}
+// 设置small尺寸的table行高
+.el-table--small {
+  .el-table__row {
+    td {
+      padding: 0;
+      height: 40px;
+    }
+  }
+}
+.el-table::before {
+  height: 0;
+}
+// 设置small-button的垂直间距
+.el-button--small {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+// 修改全局table的默认行高,及鼠标移至table一行上时,显示手指
+.el-table {
+  .el-table__row {
+    cursor: pointer;
+  }
+}

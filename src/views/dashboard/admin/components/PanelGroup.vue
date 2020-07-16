@@ -15,7 +15,7 @@
       >
         <div class="card-panel-icon-wrapper icon-people">
           <svg-icon
-            name="peoples"
+            icon-class="ic-peoples"
             class="card-panel-icon"
           />
         </div>
@@ -44,7 +44,7 @@
       >
         <div class="card-panel-icon-wrapper icon-message">
           <svg-icon
-            name="message"
+            icon-class="ic-message"
             class="card-panel-icon"
           />
         </div>
@@ -73,7 +73,7 @@
       >
         <div class="card-panel-icon-wrapper icon-money">
           <svg-icon
-            name="money"
+            icon-class="icl-message"
             class="card-panel-icon"
           />
         </div>
@@ -102,7 +102,7 @@
       >
         <div class="card-panel-icon-wrapper icon-shopping">
           <svg-icon
-            name="shopping"
+            icon-class="ice-money"
             class="card-panel-icon"
           />
         </div>
@@ -123,7 +123,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import CountTo from 'vue-count-to'
 
 @Component({

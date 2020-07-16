@@ -54,7 +54,10 @@ export interface ITodo {
   }
 })
 export default class extends Vue {
-  @Prop({ default: { text: '', done: false } }) private todo!: ITodo
+  @Prop({
+    default: { text: '', done: false }
+  })
+  private todo!: ITodo
 
   private editing = false
 

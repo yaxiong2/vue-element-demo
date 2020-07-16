@@ -7,7 +7,7 @@
     <div>
       <svg-icon
         class="size-icon"
-        name="size"
+        icon-class="size"
       />
     </div>
     <el-dropdown-menu slot="dropdown">

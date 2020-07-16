@@ -25,6 +25,9 @@ $darkGray:#889aa4;
 $loginBg: #2d3a4b;
 $loginCursorColor: #fff;
 
+//内容区域背景色
+$contentBg:#EFF3F6;
+
 // The :export directive is the magic sauce for webpack
 // https://mattferderer.com/use-sass-variables-in-typescript-and-javascript
 :export {

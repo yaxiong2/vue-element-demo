@@ -14,7 +14,7 @@
       class="main-container"
     >
       <div :class="{'fixed-header': fixedHeader}">
-        <navbar />
+        <!-- <navbar /> -->
         <tags-view v-if="showTagsView" />
       </div>
       <app-main />
@@ -79,6 +79,7 @@ export default class extends mixins(ResizeMixin) {
   position: relative;
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 .drawer-bg {

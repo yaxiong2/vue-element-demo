@@ -7,7 +7,7 @@
       @click="backToTop"
     >
       <svg-icon
-        name="back-top"
+        icon-class="back-top"
         class="backTopIcon"
       />
     </div>

@@ -7,9 +7,10 @@
     <div class="rightPanel-background" />
     <div class="rightPanel">
       <div
+        v-if="show"
         class="handle-button"
         :style="{'top': buttonTop+'px','background-color': theme}"
-        @click="show=!show"
+        @click="show = false"
       >
         <i :class="show?'el-icon-close':'el-icon-setting'" />
       </div>
@@ -32,7 +33,13 @@ export default class extends Vue {
   @Prop({ default: false }) private clickNotClose!: boolean
   @Prop({ default: 250 }) private buttonTop!: number
 
-  private show = false
+  get show() {
+    return SettingsModule.showRightPanel
+  }
+
+  set show(value:boolean) {
+    SettingsModule.ChangeSetting({ key: 'showRightPanel', value: value })
+  }
 
   get theme() {
     return SettingsModule.theme

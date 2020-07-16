@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
+    "allowJs": true,
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
@@ -13,7 +14,6 @@
     "baseUrl": ".",
     "types": [
       "node",
-      "jest",
       "webpack-env"
     ],
     "paths": {
@@ -33,9 +33,10 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx",
+    "src/api/input-form/form.js"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules","dist"
   ]
 }

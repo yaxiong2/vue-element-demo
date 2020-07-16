@@ -3,11 +3,7 @@
     :class="[{'is-active': isActive}]"
     @click="toggleClick"
   >
-    <svg-icon
-      name="hamburger"
-      width="20"
-      height="20"
-    />
+    <svg-icon icon-class="ic-outdent" />
   </div>
 </template>
 

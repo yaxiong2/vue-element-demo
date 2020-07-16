@@ -52,6 +52,7 @@ export default class extends Vue {
 
   handleSizeChange(value: number) {
     this.$emit('pagination', { page: this.currentPage, limit: value })
+
     if (this.autoScroll) {
       scrollTo(0, 800)
     }
