@@ -14,6 +14,7 @@
           :key="route.id"
           :item="route"
           :base-path="route.path"
+          @jump="jump"
         />
       </el-menu>
     </el-scrollbar>
@@ -36,8 +37,8 @@ export default class extends Vue {
   }
   private activeMenu = '0'
 
-  created() {
-    console.log(this.routes)
+  jump(val:string){
+    this.$emit('jump',val)
   }
 }
 </script>
@@ -48,6 +49,12 @@ export default class extends Vue {
 }
 .el-scrollbar {
   height: 100%;
+  width: 100%;
+  ::v-deep .el-scrollbar__wrap {
+    overflow-x:hidden;
+    overflow-y: scroll;
+    height: 100%;
+  }
 }
 ::v-deep .el-scrollbar__view {
   height: 100%;
@@ -61,6 +68,6 @@ export default class extends Vue {
 .el-menu {
   border: none;
   height: 100%;
-  width: 200px;
+  width: 100%;
 }
 </style>

@@ -6,38 +6,59 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
   {
     path: "/",
-    name: "Side",
-    component: ()=>import('@/views/sideBar/index.vue'),
-    meta:{
-      title:'首页',
-      icon:'el-icon-plus'
-    }
+    name: "Home",
+    component: () => import("@/views/Home.vue"),
+    meta: {
+      title: "首页",
+      icon: "el-icon-plus",
+    },
+    redirect:'/ceshi',
+    children:[
+      {
+        path:'ceshi',
+        name:'ceshi',
+        component:() => import("@/views/About.vue"),
+        meta:{
+          title:'测试'
+        }
+      }
+    ]
   },
   {
     path: "/about",
     name: "About",
-    component: () =>import(/* webpackChunkName: "about" */ "../views/About.vue"),
-    meta:{
-      title:'首页',
-      icon:'el-icon-plus'
+    meta: {
+      title: "关于",
+      icon: "el-icon-plus",
     },
-    children:[
+    redirect:'stars',
+    children: [
       {
-        path:'/star',
-        name:'Star',
-        meta:{
-          title:'子页面',
-          icon:'el-icon-plus'
+        path: "star",
+        name: "star",
+        component: () => import("@/views/About.vue"),
+        meta: {
+          title: "关于子页面",
+          icon: "el-icon-plus",
+        }
+      },
+      {
+        path: "stars",
+        name: "stars",
+        component: () => import("@/views/child.vue"),
+        meta: {
+          title: "子页面",
+          icon: "el-icon-plus",
         }
       }
     ]
-  }
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;
