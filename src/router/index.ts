@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
-    path: "/",
+    path: "",
     name: "Home",
     component: () => import("@/views/Home.vue"),
     meta: {
@@ -17,7 +17,8 @@ const routes: Array<RouteConfig> = [
       {
         path:'ceshi',
         name:'ceshi',
-        component:() => import("@/views/About.vue"),
+        // component:() => import("@/views/About.vue"),
+        component:() => import("@/components/树形数据遍历拼接字符串/index.vue"),
         meta:{
           title:'测试'
         }

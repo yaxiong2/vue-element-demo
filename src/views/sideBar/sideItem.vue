@@ -1,11 +1,13 @@
 <!-- 侧边栏子组件 -->
 <template>
-  <router-link v-if="!item.children || item.children.length<1" to="/about/star">
-    <el-menu-item :index="basePath" @click="jump(item.path)">
-      <i v-if="item.meta&&item.meta.icon" :class="item.meta.icon"></i>
-      <span slot="title">{{item.meta.title}}</span>
-    </el-menu-item>
-  </router-link>
+  <el-menu-item
+    :index="basePath"
+    @click="jump(item.path)"
+    v-if="!item.children || item.children.length<1"
+  >
+    <i v-if="item.meta&&item.meta.icon" :class="item.meta.icon"></i>
+    <span slot="title">{{item.meta.title}}</span>
+  </el-menu-item>
 
   <el-submenu v-else :index="basePath">
     <template slot="title" :index="basePath">
@@ -39,7 +41,31 @@ export default class extends Vue {
   }
 
   jump(val: string) {
-    this.$emit('jump', val)
+    console.log(this.findPathByLeafId(val, this.routes).join('/'))
+    const path = this.findPathByLeafId(val, this.routes).join('/')
+    this.$emit('jump', path)
+  }
+  findPathByLeafId(leafId: any, nodes: any, path?: any): any {
+    if (path === undefined) {
+      path = []
+    }
+    for (let i = 0; i < nodes.length; i++) {
+      const tmpPath = path.concat()
+      tmpPath.push(nodes[i].path)
+      if (leafId == nodes[i].path) {
+        return tmpPath
+      }
+      if (nodes[i].children) {
+        const findResult = this.findPathByLeafId(
+          leafId,
+          nodes[i].children,
+          tmpPath
+        )
+        if (findResult) {
+          return findResult
+        }
+      }
+    }
   }
 }
 </script>
