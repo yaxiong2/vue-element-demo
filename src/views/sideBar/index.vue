@@ -32,7 +32,7 @@ import SidebarItem from './sideItem.vue'
 })
 export default class extends Vue {
   get routes() {
-    const rout: any = this.$router
+    const rout: any = (this as any).$router
     return rout.options.routes
   }
   private activeMenu = '0'

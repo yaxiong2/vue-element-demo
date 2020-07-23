@@ -17,7 +17,7 @@ const routes: Array<RouteConfig> = [
       {
         path:'ceshi',
         name:'ceshi',
-        component:() => import("@/components/折叠面板内容表格/collapse-table.vue"),
+        component:() => import("@/views/About.vue"),
         meta:{
           title:'测试'
         }

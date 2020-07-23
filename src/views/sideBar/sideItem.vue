@@ -34,7 +34,7 @@ export default class extends Vue {
   @Prop({ required: true }) private item!: RouteConfig
   @Prop({ default: '' }) private basePath!: string
   get routes() {
-    const rout: any = this.$router
+    const rout: any = (this as any).$router
     return rout.options.routes
   }
 

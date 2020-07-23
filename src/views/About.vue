@@ -1,6 +1,20 @@
+<!--  -->
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-    <router-view />
-  </div>
+    <div class="markdown-body">
+      <aaa></aaa>
+    </div>
 </template>
+
+<script lang='ts'>
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import aaa from '@/assets/MarkDown/GetVue.md'
+@Component({
+  components:{
+    aaa
+  }
+})
+export default class  extends Vue {
+}
+</script>
+<style lang=scss scoped>
+</style>

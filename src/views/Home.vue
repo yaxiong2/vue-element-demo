@@ -5,9 +5,9 @@
       <sideBar @jump="jump"></sideBar>
     </div>
     <div>
-      <div>
-        <router-view/>
-      </div>
+      <transition name="move" mode="out-in">
+        <router-view></router-view> 
+      </transition>
     </div>
   </div>
 </template>
