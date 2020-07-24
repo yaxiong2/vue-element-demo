@@ -1,20 +1,18 @@
 <!--  -->
 <template>
-    <div class="markdown-body">
-      <aaa></aaa>
-    </div>
+  <div class="markdown-body">
+    <aaa></aaa>
+  </div>
 </template>
 
-<script lang='ts'>
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 import aaa from '@/assets/MarkDown/GetVue.md'
 @Component({
-  components:{
+  components: {
     aaa
   }
 })
-export default class  extends Vue {
-}
+export default class extends Vue {}
 </script>
-<style lang=scss scoped>
-</style>
+<style lang="scss" scoped></style>

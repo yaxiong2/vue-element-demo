@@ -1,26 +1,26 @@
 <!-- 折叠面板  -->
 <template>
   <div class="wrapper">
-    <div v-for="(item,index) in testData" :key="index" class="collapse-item">
+    <div v-for="(item, index) in testData" :key="index" class="collapse-item">
       <div>
-        <span @click="changeData(item,index,$event)">
+        <span @click="changeData(item, index)">
           <svg-icon icon-class="icf-dir-right" v-show="!Boolean(item.isActive)" />
           <svg-icon icon-class="icf-dir-bottom" v-show="Boolean(item.isActive)" />
-          {{item.label}}:
+          {{ item.label }}:
         </span>
-        <el-checkbox :value="item.upload===0" class="el-mr-4">查阅</el-checkbox>
-        <el-checkbox :value="item.upload===1">填写</el-checkbox>
+        <el-checkbox :value="item.upload === 0" class="el-mr-4">查阅</el-checkbox>
+        <el-checkbox :value="item.upload === 1">填写</el-checkbox>
       </div>
       <el-table :data="item.children" stripe>
         <el-table-column property="label" label="名称" />
         <el-table-column label="查阅" width="80">
           <template slot-scope="scope">
-            <el-checkbox :value="scope.row.upload===0" @change="changeData(scope.row)" />
+            <el-checkbox :value="scope.row.upload === 0" @change="changeData(scope.row)" />
           </template>
         </el-table-column>
         <el-table-column label="填写" width="80">
           <template slot-scope="scope">
-            <el-checkbox :value="scope.row.upload===1" @change="changeData(scope.row)" />
+            <el-checkbox :value="scope.row.upload === 1" @change="changeData(scope.row)" />
           </template>
         </el-table-column>
       </el-table>
@@ -28,18 +28,17 @@
   </div>
 </template>
 
-<script lang='ts'>
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 @Component({
   name: 'collapseTable'
 })
 export default class extends Vue {
-
   private testData: any = []
-  changeData(row: any, index: number, el: any) {
+  changeData(row: any, index: number) {
     setTimeout(() => {
       const collapseDom = document.getElementsByClassName('collapse-item')
-      if (Boolean(this.testData[index].isActive)) {
+      if (this.testData[index].isActive) {
         collapseDom[index].setAttribute('class', 'collapse-item isActive')
         this.testData[index].children = [
           {

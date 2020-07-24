@@ -7,19 +7,24 @@
     <br />
     <br />
     <div v-text="datas"></div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div v-text="ids"></div>
   </div>
 </template>
 
-<script lang='ts'>
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 
 @Component
 export default class extends Vue {
   private data: any = require('./data.json')
   get datas() {
-    return this.findPathByLeafId('star',this.data).join('/')
+    return this.findPathByLeafId('star', this.data).join('/')
   }
-  findPathByLeafId (leafId:any, nodes:any, path?:any):any {
+  findPathByLeafId(leafId: string, nodes: any, path?: any): any {
     if (path === undefined) {
       path = []
     }
@@ -37,7 +42,13 @@ export default class extends Vue {
       }
     }
   }
+
+  get ids() {
+    return this.getID({ name: 'yuyu', age: '15', salary: '1500' }, ['name', 'age'])
+  }
+  getID(obj: any, str: any) {
+    return [obj[str[0]], obj[str[1]]]
+  }
 }
 </script>
-<style lang='scss' scoped>
-</style>
+<style lang="scss" scoped></style>

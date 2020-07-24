@@ -6,14 +6,14 @@
     </div>
     <div>
       <transition name="move" mode="out-in">
-        <router-view></router-view> 
+        <router-view></router-view>
       </transition>
     </div>
   </div>
 </template>
 
-<script lang='ts'>
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
 import sideBar from '@/views/sideBar/index.vue'
 @Component({
   name: 'home',
@@ -22,18 +22,18 @@ import sideBar from '@/views/sideBar/index.vue'
   }
 })
 export default class extends Vue {
-  get cachedViews(){
+  get cachedViews() {
     return '/about/star'
   }
-  get key(){
+  get key() {
     return '/about/star'
   }
-  jump(val:any){
+  jump(val: string) {
     console.log(val)
   }
 }
 </script>
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .content {
   width: 100%;
   height: 100%;
