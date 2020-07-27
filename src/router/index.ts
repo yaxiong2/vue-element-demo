@@ -7,10 +7,10 @@ const routes: Array<RouteConfig> = [
   {
     path: '',
     name: 'Home',
-    component: () => import('@/views/Home.vue'),
+    component: () => import('@/views/主页/index.vue'),
     meta: {
-      title: '首页',
-      icon: 'el-icon-plus'
+      title: '示例',
+      icon: 'el-icon-eleme'
     },
     redirect: '/tree',
     children: [
@@ -19,7 +19,8 @@ const routes: Array<RouteConfig> = [
         name: '树展开折叠',
         component: () => import('@/components/element树展开折叠/index.vue'),
         meta: {
-          title: '树展开折叠'
+          title: '树展开折叠',
+          icon:'el-icon-goods'
         }
       },
       {
@@ -27,29 +28,20 @@ const routes: Array<RouteConfig> = [
         name: '树形数据遍历拼接字符串',
         component: () => import('@/components/树形数据遍历拼接字符串/index.vue'),
         meta: {
-          title: '树形数据遍历拼接字符串'
+          title: '树形数据遍历拼接字符串',
+          icon:'el-icon-help'
         }
       },
       {
         path: 'flod',
-        name: '折叠面板内容表格',
-        component: () => import('@/components/折叠面板内容表格/index.vue'),
+        name: '顶部条件赛选',
+        component: () => import('@/components/顶部条件赛选/index.vue'),
         meta: {
-          title: '折叠面板内容表格'
+          title: '顶部条件赛选',
+          icon:'el-icon-s-platform'
         }
       }
     ]
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('@/views/About.vue'),
-    meta: {
-      title: '关于',
-      icon: 'el-icon-plus'
-    },
-    redirect: 'stars',
-    children: []
   }
 ]
 
