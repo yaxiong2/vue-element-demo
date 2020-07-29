@@ -14,3 +14,4 @@ declare  module  '\*.md'  {
     MarkdownItVue:any
   }
 }
+declare module 'echarts'
