@@ -40,6 +40,24 @@ const routes: Array<RouteConfig> = [
           title: '顶部条件赛选',
           icon:'el-icon-s-platform'
         }
+      },
+      {
+        path: 'table',
+        name: '表格',
+        component: () => import('@/components/el-table/index.vue'),
+        meta: {
+          title: '表格',
+          icon:'el-icon-s-platform'
+        }
+      },
+      {
+        path: 'ceshi',
+        name: '测试',
+        component: () => import('@/components/测试/index.vue'),
+        meta: {
+          title: '测试',
+          icon:'el-icon-s-platform'
+        }
       }
     ]
   }
