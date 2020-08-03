@@ -104,6 +104,24 @@ const routes: Array<RouteConfig> = [
           title: 'js工具函数',
           icon: 'el-icon-document'
         }
+      },
+      {
+        path: 'table',
+        name: '表格',
+        component: () => import('@/components/el-table/index.vue'),
+        meta: {
+          title: '表格',
+          icon:'el-icon-s-platform'
+        }
+      },
+      {
+        path: 'ceshi',
+        name: '测试',
+        component: () => import('@/components/测试/index.vue'),
+        meta: {
+          title: '测试',
+          icon:'el-icon-s-platform'
+        }
       }
     ]
   }
