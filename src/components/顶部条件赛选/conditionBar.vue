@@ -1,15 +1,16 @@
 <!-- 台账条件栏 -->
 <template>
   <div class="condition">
-    <div v-for="(item,index) in data" :key="index" class="tab-item">
+    <div v-for="(item, index) in data" :key="index" class="tab-item">
       <p class="el-mr-2">{{ item.label }}:</p>
-      <span @click="getCondition(item, 'all')" :class="{ active:item.active}">全部</span>
+      <span @click="getCondition(item, 'all')" :class="{ active: item.active }">全部</span>
       <span
-        @click="getCondition(item,el)"
-        v-for="(el,ind) in item.children"
-        :class="{ active:el.active }"
+        @click="getCondition(item, el)"
+        v-for="(el, ind) in item.children"
+        :class="{ active: el.active }"
         :key="ind"
-      >{{ el.label }}</span>
+        >{{ el.label }}</span
+      >
     </div>
     <div>
       <el-input

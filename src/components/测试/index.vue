@@ -1,15 +1,14 @@
 <!-- 测试 -->
 <template>
   <div class="main">
-    <div>1</div>
-    <div class="item">
-      <div></div>
-    </div>
+    <a href="javascript:#">Button</a>
+    <a href="javascript:#">Button</a>
+    <a href="javascript:#">Button</a>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch } from "vue-property-decorator";
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 @Component({})
 export default class extends Vue {}
 </script>
@@ -17,46 +16,65 @@ export default class extends Vue {}
 .main {
   width: 100%;
   height: 100%;
-}
-.item {
-  margin: 50px auto;
-  position: relative;
-  width: 200px;
-  cursor:wait;
-  > div {
-    border: 1px solid #adadad;
-    height: 350px;
-    width: 100%;
-    padding: 12px;
-    position: absolute;
-    background: #fff;
-    z-index: 99;
-  }
-  &::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100px;
-    transform: scale(0.83);
-    top: -10px;
-    left: 0;
-    border: 1px solid #e8e8e8;
-    border-radius: 4px;
-    background-color: #fff;
-    z-index: 3;
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100px;
-    transform: scale(0.93);
-    top: -27px;
-    left: 0;
-    border: 1px solid #e8e8e8;
-    border-radius: 4px;
-    background-color: #fff;
-    z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #111 !important;
+  a {
+    margin: 50px;
+    color: cornflowerblue;
+    padding: 10px 30px;
+    font-size: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    transition: 0.5s;
+    transition-delay: 0.5s;
+    -webkit-box-reflect: below 1px linear-gradient(transparent,#0003);
+    &:hover {
+      background: cornflowerblue;
+      color: #111;
+      box-shadow: 0 0 50px cornflowerblue;
+      transition-delay: 0.5s;
+    }
+    &:hover::before,
+    &:hover::after {
+      width: 100%;
+      height: 100%;
+      transition-delay: 0;
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      border-top: 2px solid cornflowerblue;
+      border-left: 2px solid cornflowerblue;
+      transition: 0.5s;
+      transition-delay: 0.5s;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 10px;
+      height: 10px;
+      border-bottom: 2px solid cornflowerblue;
+      border-right: 2px solid cornflowerblue;
+      transition: 0.5s;
+      transition-delay: 0.5s;
+    }
+    &:first-child {
+      filter: hue-rotate(115deg);
+    }
+    &:last-child{
+      filter: hue-rotate(270deg);
+    }
   }
 }
 </style>

@@ -1,0 +1,8 @@
+{
+  "endofline": "lf",
+  "semi": false,
+  "singleQuote": true,
+  "printWidth": 240,
+  "endOfLine": "auto",
+  "bracketSpacing": true
+}
