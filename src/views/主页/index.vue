@@ -50,7 +50,7 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .wrapp {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   > div:first-child {
     width: 240px;
@@ -76,9 +76,10 @@ export default class extends Vue {
     background: #eff3f6;
     padding: 16px;
     width: 100%;
+    height: calc(100vh - 32px);
     .menu-right {
       width: 100%;
-      height: 100%;
+      height: calc(100vh - 32px);
       background: #fff;
     }
   }

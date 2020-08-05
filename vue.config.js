@@ -13,10 +13,7 @@ module.exports = {
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'scss',
-      patterns: [
-        path.resolve(__dirname, 'src/style/element-variables.scss'),
-        path.resolve(__dirname, 'src/style/reset.scss')
-      ]
+      patterns: [path.resolve(__dirname, 'src/style/element-variables.scss'), path.resolve(__dirname, 'src/style/reset.scss')]
     }
   },
   chainWebpack: config => {
@@ -30,7 +27,22 @@ module.exports = {
       .loader('vue-markdown-loader/lib/markdown-compiler')
       .options({
         raw: true
-      })
+      }),
+      config.module
+        .rule('svg')
+        .exclude.add(path.resolve('src/icons'))
+        .end(),
+      config.module
+        .rule('icons')
+        .test(/\.svg$/)
+        .include.add(path.resolve('src/icons'))
+        .end()
+        .use('svg-sprite-loader')
+        .loader('svg-sprite-loader')
+        .options({
+          symbolId: 'icon-[name]'
+        })
+        .end()
   },
   lintOnSave: false
 }

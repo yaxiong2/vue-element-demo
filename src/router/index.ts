@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
+import { Icon } from 'element-ui'
 
 Vue.use(VueRouter)
 
@@ -19,7 +20,7 @@ const routes: Array<RouteConfig> = [
         component: () => import('@/components/element树展开折叠/index.vue'),
         meta: {
           title: '树展开折叠',
-          icon:'el-icon-document'
+          icon: 'el-icon-document'
         }
       },
       {
@@ -28,7 +29,7 @@ const routes: Array<RouteConfig> = [
         component: () => import('@/components/树形数据遍历拼接字符串/index.vue'),
         meta: {
           title: '树形数据遍历拼接字符串',
-          icon:'el-icon-document'
+          icon: 'el-icon-document'
         }
       },
       {
@@ -37,7 +38,7 @@ const routes: Array<RouteConfig> = [
         component: () => import('@/components/顶部条件赛选/index.vue'),
         meta: {
           title: '顶部条件赛选',
-          icon:'el-icon-document'
+          icon: 'el-icon-document'
         }
       },
       {
@@ -46,7 +47,7 @@ const routes: Array<RouteConfig> = [
         component: () => import('@/components/el-table/index.vue'),
         meta: {
           title: '表格',
-          icon:'el-icon-document'
+          icon: 'el-icon-document'
         }
       },
       {
@@ -55,7 +56,7 @@ const routes: Array<RouteConfig> = [
         component: () => import('@/components/测试/index.vue'),
         meta: {
           title: '测试',
-          icon:'el-icon-document'
+          icon: 'el-icon-document'
         }
       },
       {
@@ -64,7 +65,7 @@ const routes: Array<RouteConfig> = [
         component: () => import('@/components/背景动态线条/index.vue'),
         meta: {
           title: '动态线条',
-          icon:'el-icon-document'
+          icon: 'el-icon-document'
         }
       },
       {
@@ -73,7 +74,16 @@ const routes: Array<RouteConfig> = [
         component: () => import('@/views/拖动条/index.vue'),
         meta: {
           title: '拖动条',
-          icon:'el-icon-document'
+          icon: 'el-icon-document'
+        }
+      },
+      {
+        path: 'waterfall',
+        name: 'waterfall',
+        component: () => import('@/components/背景/waterfall.vue'),
+        meta: {
+          title: 'waterfall',
+          icon: 'el-icon-document'
         }
       }
     ]
@@ -86,7 +96,7 @@ const routes: Array<RouteConfig> = [
       title: '关于',
       icon: 'el-icon-s-management'
     },
-    children:[
+    children: [
       {
         path: 'about',
         name: 'About',
@@ -104,23 +114,25 @@ const routes: Array<RouteConfig> = [
           title: 'js工具函数',
           icon: 'el-icon-document'
         }
-      },
+      }
+    ]
+  },
+  {
+    path: '',
+    name: 'Icon',
+    component: () => import('@/views/主页/index.vue'),
+    meta: {
+      title: '图标',
+      icon: 'el-icon-s-management'
+    },
+    children: [
       {
-        path: 'table',
-        name: '表格',
-        component: () => import('@/components/el-table/index.vue'),
+        path: 'icons',
+        name: 'Icon',
+        component: () => import('@/views/icons/index.vue'),
         meta: {
-          title: '表格',
-          icon:'el-icon-s-platform'
-        }
-      },
-      {
-        path: 'ceshi',
-        name: '测试',
-        component: () => import('@/components/测试/index.vue'),
-        meta: {
-          title: '测试',
-          icon:'el-icon-s-platform'
+          title: '图标',
+          icon: 'el-icon-document'
         }
       }
     ]

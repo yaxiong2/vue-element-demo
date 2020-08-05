@@ -16,3 +16,4 @@ declare  module  '\*.md'  {
 }
 declare module 'echarts'
 declare module 'vue-particles'
+declare module 'clipboard'
