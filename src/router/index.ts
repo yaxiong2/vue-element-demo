@@ -17,7 +17,7 @@ const routes: Array<RouteConfig> = [
       {
         path: 'tree',
         name: 'tree',
-        component: () => import('@/components/element树展开折叠/index.vue'),
+        component: () => import('@/components/1.element树展开折叠/index.vue'),
         meta: {
           title: '树展开折叠',
           icon: 'el-icon-document'
@@ -26,7 +26,7 @@ const routes: Array<RouteConfig> = [
       {
         path: 'treestring',
         name: 'treestring',
-        component: () => import('@/components/树形数据遍历拼接字符串/index.vue'),
+        component: () => import('@/components/2.树形数据遍历拼接字符串/index.vue'),
         meta: {
           title: '树形数据遍历拼接字符串',
           icon: 'el-icon-document'
@@ -35,7 +35,7 @@ const routes: Array<RouteConfig> = [
       {
         path: 'flod',
         name: 'flod',
-        component: () => import('@/components/顶部条件赛选/index.vue'),
+        component: () => import('@/components/3.顶部条件赛选/index.vue'),
         meta: {
           title: '顶部条件赛选',
           icon: 'el-icon-document'
@@ -44,7 +44,7 @@ const routes: Array<RouteConfig> = [
       {
         path: 'table',
         name: 'table',
-        component: () => import('@/components/el-table/index.vue'),
+        component: () => import('@/components/4.el-table/index.vue'),
         meta: {
           title: '表格',
           icon: 'el-icon-document'
@@ -53,25 +53,25 @@ const routes: Array<RouteConfig> = [
       {
         path: 'ceshi',
         name: 'ceshi',
-        component: () => import('@/components/测试/index.vue'),
+        component: () => import('@/components/5.测试/index.vue'),
         meta: {
           title: '测试',
           icon: 'el-icon-document'
         }
       },
       {
-        path: 'line',
-        name: 'line',
-        component: () => import('@/components/背景动态线条/index.vue'),
+        path: 'eventBus',
+        name: 'eventBus',
+        component: () => import('@/components/6.eventBus/index.vue'),
         meta: {
-          title: '动态线条',
+          title: 'eventBus',
           icon: 'el-icon-document'
         }
       },
       {
         path: 'drag',
         name: 'drag',
-        component: () => import('@/views/拖动条/index.vue'),
+        component: () => import('@/components/7.拖动条/index.vue'),
         meta: {
           title: '拖动条',
           icon: 'el-icon-document'
@@ -80,7 +80,7 @@ const routes: Array<RouteConfig> = [
       {
         path: 'waterfall',
         name: 'waterfall',
-        component: () => import('@/components/背景/waterfall.vue'),
+        component: () => import('@/components/8.背景/waterfall.vue'),
         meta: {
           title: 'waterfall',
           icon: 'el-icon-document'
@@ -89,7 +89,7 @@ const routes: Array<RouteConfig> = [
       {
         path: 'publicField',
         name: 'publicField',
-        component: () => import('@/components/公共字段相关字段/Va-PublicField.vue'),
+        component: () => import('@/components/9.公共字段相关字段/Va-PublicField.vue'),
         meta: {
           title: 'publicField',
           icon: 'el-icon-document'
@@ -98,7 +98,7 @@ const routes: Array<RouteConfig> = [
       {
         path: 'relativeField',
         name: 'relativeField',
-        component: () => import('@/components/公共字段相关字段/Va-RelevantField.vue'),
+        component: () => import('@/components/9.公共字段相关字段/Va-RelevantField.vue'),
         meta: {
           title: 'relativeField',
           icon: 'el-icon-document'
@@ -118,7 +118,7 @@ const routes: Array<RouteConfig> = [
       {
         path: 'about',
         name: 'About',
-        component: () => import('@/views/关于/index.vue'),
+        component: () => import('@/components/10.关于/index.vue'),
         meta: {
           title: '关于我们',
           icon: 'el-icon-document'
@@ -127,7 +127,7 @@ const routes: Array<RouteConfig> = [
       {
         path: 'jstool',
         name: 'About',
-        component: () => import('@/components/js工具函数/index.vue'),
+        component: () => import('@/components/11.js工具函数/index.vue'),
         meta: {
           title: 'js工具函数',
           icon: 'el-icon-document'
@@ -147,7 +147,7 @@ const routes: Array<RouteConfig> = [
       {
         path: 'icons',
         name: 'Icon',
-        component: () => import('@/views/icons/index.vue'),
+        component: () => import('@/components/12.icons/index.vue'),
         meta: {
           title: '图标',
           icon: 'el-icon-document'
