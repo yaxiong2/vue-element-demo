@@ -85,6 +85,24 @@ const routes: Array<RouteConfig> = [
           title: 'waterfall',
           icon: 'el-icon-document'
         }
+      },
+      {
+        path: 'publicField',
+        name: 'publicField',
+        component: () => import('@/components/公共字段相关字段/Va-PublicField.vue'),
+        meta: {
+          title: 'publicField',
+          icon: 'el-icon-document'
+        }
+      },
+      {
+        path: 'relativeField',
+        name: 'relativeField',
+        component: () => import('@/components/公共字段相关字段/Va-RelevantField.vue'),
+        meta: {
+          title: 'relativeField',
+          icon: 'el-icon-document'
+        }
       }
     ]
   },
