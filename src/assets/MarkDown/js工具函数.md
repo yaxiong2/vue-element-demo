@@ -52,20 +52,33 @@ this.$router.push({
 })
 ```
 
+## 4、递归找寻 id
 
-
-## 4、数学公式
-
-$$
-\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}
-\mathbf{i} & \mathbf{j} & \mathbf{k} \\
-\frac{\partial X}{\partial u} &  \frac{\partial Y}{\partial u} & 0 \\
-\frac{\partial X}{\partial v} &  \frac{\partial Y}{\partial v} & 0 \\
-\end{vmatrix}
-${$tep1}{\style{visibility:hidden}{(x+1)(x+1)}}
-$$
-
-
-
-
-
+```JavaScript
+let arr = {
+  id:'10',
+  parent:[
+    {
+      id:'1616',
+      parent:[
+        {
+          id:'9090'
+        }
+      ]
+    }
+  ]
+}
+//方法一
+let current = []
+while( arr.id ) {
+  current.unshift(arr.id)
+  arr = arr.parent
+}
+//方法二
+function findId(arr,res=[]){
+  if (arr.id) res.unshift(arr.id)
+  if (arr.parent) findId(arr.parent,res)
+  return res
+}
+findId(arr)
+```
