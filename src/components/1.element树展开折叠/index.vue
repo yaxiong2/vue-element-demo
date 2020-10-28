@@ -13,7 +13,7 @@
     ></el-tree>
 
     <el-button @click="expandOpen(1)">展开所有菜单</el-button>
-
+    <svg-icon icon-class="icl-app" />
     <el-button @click="expandOpen(0)">收起所有菜单</el-button>
   </div>
 </template>

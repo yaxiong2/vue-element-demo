@@ -78,15 +78,6 @@ const routes: Array<RouteConfig> = [
         }
       },
       {
-        path: 'waterfall',
-        name: 'waterfall',
-        component: () => import('@/components/8.背景/waterfall.vue'),
-        meta: {
-          title: 'waterfall',
-          icon: 'el-icon-document'
-        }
-      },
-      {
         path: 'publicField',
         name: 'publicField',
         component: () => import('@/components/9.公共字段相关字段/Va-PublicField.vue'),
